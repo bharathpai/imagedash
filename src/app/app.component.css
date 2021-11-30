@@ -14,4 +14,9 @@ background-color: grey;
 .box1{
     /* height: 100vh; */
     background-color: rgba(77, 179, 179, 0.815);
+    height: 100vh;
+}
+a{
+    color: black;
+    text-decoration: none;
 }
