@@ -3,6 +3,7 @@
     color: white;
     /* color: white; */
 }
+
 /* .box1{
     height: 1000px;
 background: url('../assets/pexels-lumn-167699.jpg') ;
@@ -11,6 +12,6 @@ background-size: 100% 100%;
 background-color: grey;
 } */
 .box1{
-    height: 100vh;
+    /* height: 100vh; */
     background-color: rgba(77, 179, 179, 0.815);
 }

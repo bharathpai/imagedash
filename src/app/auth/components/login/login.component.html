@@ -1,1 +1,72 @@
-<p>login works!</p>
+<div class="container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-lg-4 col-md-7 col-sm-8 col-xs-8 mx-auto box">
+            <h2>Login</h2>
+          <form [formGroup]="userDetails" class="text-center">
+              <!--Email-->
+            <div class="form-floating mb-4">
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control"
+                id="email-id"
+                placeholder="Email"
+                [ngClass]="{'is-invalid':userDetails.controls['email'].touched &&
+                userDetails.controls['email'].invalid,'is-valid':userDetails.controls['email'].valid}"
+              />
+              <label for="email-id" class="form-label">Email:</label>
+            </div>
+
+            <small
+              class="alert text-danger p-0"
+              role="alert"
+              *ngIf="
+                userDetails.controls['email'].touched &&
+                userDetails.controls['email'].invalid
+              "
+            >
+              Please provide a valid email!
+            </small>
+              <!--Email-->
+
+              <!--Password-->
+            <div class="form-floating mb-4">
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                id="password-1"
+                placeholder="Password"
+                [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
+                userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}"
+              />
+              <label for="password-1" class="form-label">Password:</label>
+
+            </div>
+            <small
+              class="alert text-danger p-0"
+              role="alert"
+              *ngIf="
+                userDetails.controls['password'].touched &&
+                userDetails.controls['password'].invalid
+              "
+            >
+            Your password must be 8-20 characters long, can contain letters, special characters and numbers, and must not contain spaces, or emoji.
+            </small>
+            <!--Password-->
+            
+            <br>
+            <button
+                class=""
+              type="submit"
+              routerLink="/login"
+              [disabled]="!userDetails.valid"
+              class="btn btn-primary"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+</div>
