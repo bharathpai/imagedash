@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LoginComponent } from './components/login/login.component';
     LoginComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports:[
     SignupComponent,
