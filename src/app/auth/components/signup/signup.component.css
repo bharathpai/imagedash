@@ -4,10 +4,16 @@
 
 .box{
     padding: 3rem;
+    position: relative;
     border-radius: 2rem;
-    background-color: rgba(255, 255, 255, 0.425);
+    background-color: #ffffffc9;
 }
 
-.box:hover{
-    background-color: rgba(255, 255, 255, 0.616);
+.btn{
+    background-color: #f06500;
+    position: relative;
+}
+
+.btn:hover{
+    background-color: #f00500;
 }
