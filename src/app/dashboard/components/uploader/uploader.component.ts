@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
@@ -18,7 +18,12 @@ export class UploaderComponent implements OnInit {
   });
 
   constructor(private http: HttpClient) { }
-
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXZsaSIsInN1YiI6IjYxYTYxNmVlNjUxMzNlMDAxOGQzYzUwMyIsImlhdCI6MTYzODM0OTcxMjM2MiwiZXhwIjoxNjM4NDM2MTEyMzYyfQ.BemaM1106lZSNXBy9OqTORm9jW-aIgcipkg5GlUJ4t0',
+    })
+  };
   ngOnInit(): void {
   }
 
@@ -42,7 +47,7 @@ export class UploaderComponent implements OnInit {
 
   submit() {
     console.log(this.myForm.value);
-    this.http.post('https://serene-hollows-11661.herokuapp.com/api/v1/upload', this.myForm.value)
+    this.http.post('https://serene-hollows-11661.herokuapp.com/api/v1/upload', this.myForm.value, this.httpOptions)
       .subscribe(res => {
         console.log(res);
         alert('Uploaded Successfully.');
