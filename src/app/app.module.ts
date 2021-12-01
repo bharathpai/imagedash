@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     FormsModule,
     AuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    DashboardModule
  
   ],
   providers: [],

@@ -22,9 +22,9 @@ body {
 
 .navbar{
   background-color: #53514f;
-  /* background-color: #f06500; */
   color: white;
-  height: 5rem;
+  height: fit-content;
+  padding-bottom: 1rem;
 }
 
 .box1{
