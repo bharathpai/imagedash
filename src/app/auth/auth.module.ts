@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../helpers/auth.interceptor';
 
-
 @NgModule({
   declarations: [
 

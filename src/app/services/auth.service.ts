@@ -28,18 +28,11 @@ export class AuthService {
     return this.http.post(api, user).pipe(catchError(this.handleError));
   }
 
-  // Sign-in
+  // Sign-in  
   signIn(user: user) {
     console.warn('USER:' + user.email + '&' + user.password);
     return this.http
-      .post<any>(`${this.endpoint}/signin`, user)
-      .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
-        console.warn(JSON.stringify(res)); //undefined
-        this.currentUser = res;
-        console.warn('inside signin ' + res);
-        this.router.navigate(['/user-profile/' + user.email]);
-      });
+      .post<any>(`${this.endpoint}/login`, user)
   }
 
   //get token
