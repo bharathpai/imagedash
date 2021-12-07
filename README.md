@@ -1,4 +1,5 @@
 # Imagedash
+## A Single Page Web Application to upload images and display on a dashboard.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.2.
 

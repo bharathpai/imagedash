@@ -1,0 +1,19 @@
+.row{
+    min-height: 5rem;
+}
+
+.box{
+    padding: 3rem;
+    position: relative;
+    border-radius: 2rem;
+    background-color: #ffffffc9;
+}
+
+.btn{
+    background-color: #f06500;
+    position: relative;
+}
+
+.btn:hover{
+    background-color: #f00500;
+}
