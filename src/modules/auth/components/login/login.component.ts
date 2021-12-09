@@ -23,19 +23,32 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getloggin: any = true;
+
   loginUser() {
     console.warn(this.userDetails.value);
-    this.authService.signIn(this.userDetails.value).subscribe((res: any) => {
+    this.authService.logIn(this.userDetails.value).subscribe((res: any) => {
       localStorage.setItem('access_token', res.token);
       this.islogin = false;
       console.warn(JSON.stringify(res)); //undefined
       this.authService.currentUser = res;
       console.warn('inside signin ' + res);
 
-      this.router.navigate(['/upload' + this.userDetails.value.email]);
+      console.warn("getloggin in child:" + this.getloggin);
+
+      this.router.navigate(['/uploader']);
+
+
     }, err => {
       console.warn(err);
+
       this.islogin = true;
+
+      setInterval(() => {
+        this.islogin = false;
+        console.warn(this.islogin);
+
+      }, 10000);
 
     }
     );

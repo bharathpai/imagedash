@@ -63,11 +63,13 @@
         <!--Confirm Password-->
 
         <!--Submit Button-->
-        <button type="submit" (click)="registerUser()" [disabled]="!userDetails.valid" class="btn text-light mt-4">
+        <button type="submit" (click)="registerUser()" [disabled]="!userDetails.valid" class="btn text-light mt-4 mb-4">
           Sign Up
         </button>
         <!--Submit Button-->
       </form>
+      <small class="p-2">Already have an account?</small>
+      <a class="text-center" routerLink="/login">Click here to Login</a>
     </div>
   </div>
 </div>
