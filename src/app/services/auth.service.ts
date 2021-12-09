@@ -29,10 +29,10 @@ export class AuthService {
   }
 
   // Sign-in  
-  signIn(user: user) {
+  logIn(user: user) {
     console.warn('USER:' + user.email + '&' + user.password);
     return this.http
-      .post<any>(`${this.endpoint}/login`, user)
+      .post<any>(`${this.endpoint}/signin`, user)
   }
 
   //get token
