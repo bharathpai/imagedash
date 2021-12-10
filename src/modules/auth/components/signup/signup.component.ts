@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { user } from 'src/app/signin';
 import { AuthService } from 'src/app/services/auth.service';
+import { ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
@@ -13,12 +14,18 @@ export class SignupComponent implements OnInit {
   userobj: user = new user();
   isSignUpFailed: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService, private elref: ElementRef) {
   }
 
 
   ngOnInit(): void {
   }
+
+  ngAfterViewInit() {
+    this.elref.nativeElement.ownerDocument
+      .body.style.backgroundColor = '#F1F0FF';
+  }
+
 
   userDetails: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email, Validators.pattern('^[A-Za-z0-9._%+]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],

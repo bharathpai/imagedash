@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       console.warn('inside signin ' + res);
 
       console.warn("getloggin in child:" + this.getloggin);
-
       this.router.navigate(['/uploader']);
 
 

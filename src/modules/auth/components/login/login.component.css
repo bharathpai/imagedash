@@ -2,17 +2,7 @@
     min-height: 5rem;
 }
 
-.box{
-    padding: 3rem;
-    position: relative;
-    border-radius: 2rem;
-    background-color: #ffffffc9;
-}
-
-.btn{
-    position: relative;
-    background-color: #f06500;
-}.row{
+.row{
     min-height: 5rem;
 }
 
@@ -21,18 +11,14 @@
     position: relative;
     border-radius: 2rem;
     background-color: #ffffffc9;
-    box-shadow: 4px 3px 8px 1px #969696;
+    box-shadow: 10px 10px 15px 6px #969696;
 }
 
 .btn{
-    background-color: #f06500;
+    background-color: #965fe9;
     position: relative;
 }
 
 .btn:hover{
-    background-color: #f00500;
-}
-
-.btn:hover{
-    background-color: #f00500;
+    background-color: rgb(6, 228, 6);
 }

@@ -7,11 +7,11 @@
     position: relative;
     border-radius: 2rem;
     background-color: #ffffffc9;
-    box-shadow: 4px 3px 8px 1px #969696;
+    box-shadow: 10px 10px 15px 6px #969696;
 }
 
 .btn{
-    background-color: #f06500;
+    background-color:#965fe9;
     position: relative;
 }
 
