@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   loginUser() {
     console.warn(this.userDetails.value);
     this.authService.logIn(this.userDetails.value).subscribe((res: any) => {
-      localStorage.setItem('access_token', res.token);
+      sessionStorage.setItem('access_token', res.token);
       this.islogin = false;
       console.warn(JSON.stringify(res)); //undefined
       this.authService.currentUser = res;
