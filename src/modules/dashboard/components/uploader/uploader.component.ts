@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
   selector: 'app-uploader',
@@ -10,47 +8,32 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class UploaderComponent implements OnInit {
 
-  imageSrc?: string;
-  myForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required])
-  });
+  message = '';
+  selectedFile?: File
+  fileName: string | undefined
+  imgUrl: string | undefined
 
-  constructor(private http: HttpClient) { }
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXZsaSIsInN1YiI6IjYxYTYxNmVlNjUxMzNlMDAxOGQzYzUwMyIsImlhdCI6MTYzODM0OTcxMjM2MiwiZXhwIjoxNjM4NDM2MTEyMzYyfQ.BemaM1106lZSNXBy9OqTORm9jW-aIgcipkg5GlUJ4t0',
-    })
-  };
+  constructor(private uploadService: UploadService) { }
+
   ngOnInit(): void {
   }
 
-  get f() {
-    return this.myForm.controls;
+  selectFile(event: any): void {
+    this.selectedFile = event.target.files[0]
   }
 
-  onFileChange(event) {
-    const reader = new FileReader();
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-        this.myForm.patchValue({
-          fileSource: reader.result
-        });
-      };
-    }
-  }
-
-  submit() {
-    console.log(this.myForm.value);
-    this.http.post('https://serene-hollows-11661.herokuapp.com/api/v1/upload', this.myForm.value, this.httpOptions)
-      .subscribe(res => {
-        console.log(res);
-        alert('Uploaded Successfully.');
+  upload(): void {
+    if (this.selectedFile) {
+      const formData = new FormData()
+      formData.append("file", this.selectedFile)
+      this.uploadService.onFileSelected(formData).subscribe((res) => {
+        console.log(res)
+        this.fileName = this.selectedFile?.name;
+        this.imgUrl = res
+        if (res) {
+          this.message = "Upload Successfull!!"
+        }
       })
+    }
   }
 }
