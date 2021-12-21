@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) { }
 
-
   islogin: boolean = false;
   hehe: any;
   userDetails: FormGroup = this.fb.group({
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit {
 
       console.warn("getloggin in child:" + this.getloggin);
       this.router.navigate(['/uploader']);
-
 
     }, err => {
       console.warn(err);
