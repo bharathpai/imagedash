@@ -3,7 +3,8 @@
     <div class="col-md-6">
       <input class="form-control mb-4" type="file" name="file" (change)="selectFile($event)">
       <div class="file-upload col-md-3 mb-3">
-        <button class="form-control bg-primary text-light" (click)="upload()">Click to Upload</button>
+        <button class="form-control text-light" [disabled]="!selectedFile"
+          [ngClass]="selectedFile ? 'bg-primary' : 'bg-secondary'" (click)="upload()">Click to Upload</button>
       </div>
       <span class="mb-4" [ngClass]="{'text-success':message}">{{message || "No file uploaded yet."}}</span>
     </div>
