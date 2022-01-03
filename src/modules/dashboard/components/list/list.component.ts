@@ -4,7 +4,7 @@ import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3"
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
 

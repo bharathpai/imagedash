@@ -4,7 +4,7 @@ import { UploadService } from 'src/app/services/upload.service';
 @Component({
   selector: 'app-uploader',
   templateUrl: './uploader.component.html',
-  styleUrls: ['./uploader.component.css']
+  styleUrls: ['./uploader.component.scss']
 })
 export class UploaderComponent implements OnInit {
 
