@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4 col-md-7 col-sm-8 col-xs-8 mx-auto mt-5 box">
+    <div class="col-lg-5 col-md-8 col-sm-9 col-xs-9 mx-auto mt-5 box">
       <h2 class="mb-4">Register</h2>
       <form [formGroup]="userDetails" class="text-center">
         <!--Email-->
@@ -9,10 +9,10 @@
             <input type="email" formControlName="email" class="form-control" id="email-id" placeholder="Email"
               [ngClass]="{'is-invalid':userDetails.controls['email'].touched &&
                     userDetails.controls['email'].invalid,'is-valid':userDetails.controls['email'].valid}" />
-            <label for="email-id" class="form-label">Email:</label>
+            <label for="email-id" class="form-label">Enter an Email:</label>
           </div>
 
-          <small class="alert alert-danger px-3 p-0" role="alert" *ngIf="
+          <small class="alert text-danger px-3 p-0" role="alert" *ngIf="
                     userDetails.controls['email'].touched &&
                     userDetails.controls['email'].invalid
                   ">
@@ -23,34 +23,44 @@
 
         <!--Password-->
         <div class="form-group mb-5">
-          <div class="form-floating">
-            <input type="password" formControlName="password" class="form-control " id="password-1"
-              placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
+          <div class="input-group">
+            <div class="form-floating col">
+              <input id="password-1" [type]="showPassword ? 'text' : 'password'" name="password"
+                formControlName="password" class="form-control " placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
                     userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}" />
-            <label for="password-1" class="form-label">Password:</label>
-
+              <label for="password-1" class="form-label">Enter a Password:</label>
+            </div>
+            <span id="pass" class="input-group-text" (click)="togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{icon}}</mat-icon>
+            </span>
           </div>
-          <div class="alert alert-danger px-3 p-0" role="alert" *ngIf="
+
+          <small class=" alert text-danger px-3 p-0" role="alert" *ngIf="
                     userDetails.controls['password'].touched &&
                     userDetails.controls['password'].invalid
                   ">
             Your password must be 8-20 characters long, can contain letters, special characters and numbers, and must
             not contain spaces, or emoji.
-          </div>
+          </small>
 
         </div>
 
         <!--Password-->
         <!--Confirm Password-->
         <div class="form-group mb-5">
-          <div class="form-floating">
-            <input type="password" formControlName="confirm" class="form-control" id="password-2"
-              placeholder="Confirm your Password" [ngClass]="{'is-invalid':!(userDetails.controls['password'].value ===
-                    userDetails.controls['confirm'].value) && userDetails.controls['password'].invalid && userDetails.controls['confirm'].touched,'is-valid':userDetails.controls['confirm'].valid && (userDetails.controls['password'].value ===
-                    userDetails.controls['confirm'].value)}" />
-            <label for="password-2" class="form-label">Confirm your Password:</label>
-
+          <div class="input-group">
+            <div class="form-floating col">
+              <input [type]="showPassword ? 'text' : 'password'" name="password" formControlName="confirm"
+                class="form-control" id="password-2" placeholder="Confirm your Password" [ngClass]="{'is-invalid':!(userDetails.controls['password'].value ===
+                      userDetails.controls['confirm'].value) && userDetails.controls['password'].invalid && userDetails.controls['confirm'].touched,'is-valid':userDetails.controls['confirm'].valid && (userDetails.controls['password'].value ===
+                      userDetails.controls['confirm'].value)}" />
+              <label for="password-2" class="form-label">Confirm your Password:</label>
+            </div>
+            <span class="input-group-text" (click)="togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{icon}}</mat-icon>
+            </span>
           </div>
+
           <small class="alert text-danger p-0" role="alert" *ngIf="!(userDetails.controls['password'].value ===
                 userDetails.controls['confirm'].value) && userDetails.controls['password'].touched && userDetails.controls['confirm'].touched
               ">

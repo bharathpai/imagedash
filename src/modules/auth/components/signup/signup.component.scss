@@ -1,20 +1,15 @@
-.row{
-    min-height: 5rem;
+.box {
+  padding: 3rem;
+  position: relative;
+  border-radius: 2rem;
+  background-color: #ffffffc9;
+  box-shadow: 10px 10px 15px 6px #969696;
 }
 
-.box{
-    padding: 3rem;
-    position: relative;
-    border-radius: 2rem;
-    background-color: #ffffffc9;
-    box-shadow: 10px 10px 15px 6px #969696;
-}
-
-.btn{
-    background-color:#965fe9;
-    position: relative;
-}
-
-.btn:hover{
+.btn {
+  background-color: #965fe9;
+  position: relative;
+  &:hover {
     background-color: #f00500;
+  }
 }

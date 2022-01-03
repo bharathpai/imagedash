@@ -13,6 +13,8 @@ import { ElementRef } from '@angular/core';
 export class SignupComponent implements OnInit {
   userobj: user = new user();
   isSignUpFailed: boolean = false;
+  showPassword: boolean = false
+  icon: string = 'visibility'
 
   constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService, private elref: ElementRef) {
   }
@@ -34,18 +36,19 @@ export class SignupComponent implements OnInit {
   })
 
   registerUser() {
-    console.warn(this.userDetails.value);
+    // console.warn(this.userDetails.value);
 
     this.userobj.email = this.userDetails.value.email;
     this.userobj.password = this.userDetails.value.password;
-    console.warn(this.userobj);
+    // console.warn(this.userobj);
 
     this.authservice.signUp(this.userobj).subscribe(
       (res) => {
         if (!res.error) {
           this.userDetails.reset();
           this.isSignUpFailed = false;
-          console.warn(this.isSignUpFailed);
+          // console.warn(this.isSignUpFailed);
+          alert('Signup Successfull!')
           this.router.navigate(['/login']);
         }
 
@@ -61,4 +64,21 @@ export class SignupComponent implements OnInit {
       }
     );
   }
+
+  public togglePasswordVisibility(event: any) {
+    this.showPassword = !this.showPassword
+    if (event.target.classList[0] == "mat-icon") {
+      if (this.showPassword) {
+        event.target.innerText = 'visibility_off'
+        console.log(event);
+
+      }
+      else {
+        event.target.innerText = "visibility"
+        console.log(event)
+      }
+    }
+
+  }
+
 }
