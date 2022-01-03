@@ -12,7 +12,7 @@
             <label for="email-id" class="form-label">Email:</label>
           </div>
 
-          <small class="alert text-danger p-0" role="alert" *ngIf="
+          <small class="alert alert-danger px-3 p-0" role="alert" *ngIf="
                     userDetails.controls['email'].touched &&
                     userDetails.controls['email'].invalid
                   ">
@@ -24,19 +24,19 @@
         <!--Password-->
         <div class="form-group mb-5">
           <div class="form-floating">
-            <input type="password" formControlName="password" class="form-control" id="password-1"
+            <input type="password" formControlName="password" class="form-control " id="password-1"
               placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
                     userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}" />
             <label for="password-1" class="form-label">Password:</label>
 
           </div>
-          <small class="alert text-danger p-0" role="alert" *ngIf="
+          <div class="alert alert-danger px-3 p-0" role="alert" *ngIf="
                     userDetails.controls['password'].touched &&
                     userDetails.controls['password'].invalid
                   ">
             Your password must be 8-20 characters long, can contain letters, special characters and numbers, and must
             not contain spaces, or emoji.
-          </small>
+          </div>
 
         </div>
 
@@ -45,9 +45,9 @@
         <div class="form-group mb-5">
           <div class="form-floating">
             <input type="password" formControlName="confirm" class="form-control" id="password-2"
-              placeholder="Confirm your Password"
-              [ngClass]="{'is-invalid':!(userDetails.controls['password'].value ===
-                    userDetails.controls['confirm'].value) && userDetails.controls['password'].touched && userDetails.controls['confirm'].touched,'is-valid':userDetails.controls['confirm'].touched }" />
+              placeholder="Confirm your Password" [ngClass]="{'is-invalid':!(userDetails.controls['password'].value ===
+                    userDetails.controls['confirm'].value) && userDetails.controls['password'].invalid && userDetails.controls['confirm'].touched,'is-valid':userDetails.controls['confirm'].valid && (userDetails.controls['password'].value ===
+                    userDetails.controls['confirm'].value)}" />
             <label for="password-2" class="form-label">Confirm your Password:</label>
 
           </div>
