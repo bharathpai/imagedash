@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router,
+    private toast: ToastService) { }
 
   islogin: boolean = false;
   hehe: any;
@@ -31,9 +33,9 @@ export class LoginComponent implements OnInit {
       this.islogin = false;
       console.warn(JSON.stringify(res)); //undefined
       this.authService.currentUser = res;
-      console.warn('inside signin ' + res);
-
-      console.warn("getloggin in child:" + this.getloggin);
+      // console.warn('inside signin ' + res);
+      this.toast.logInToastr()
+      // console.warn("getloggin in child:" + this.getloggin);
       this.router.navigate(['/uploader']);
 
     }, err => {

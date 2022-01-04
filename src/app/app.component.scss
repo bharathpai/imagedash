@@ -6,9 +6,8 @@
   box-sizing: border-box !important;
 }
 
-html, body {
+html {
   height: 100%;
-  /* font-family: 'Lato', sans-serif; */
 }
 
 body {
@@ -18,7 +17,7 @@ body {
   font-family: sans-serif;
 }
 
-.navbar{
+.navbar {
   background-color: #965fe9;
   box-shadow: 4px 3px 8px 1px #969696;
   height: 6rem;
@@ -26,25 +25,24 @@ body {
   border-radius: 0rem 0rem 2rem 2rem;
 }
 
-h1{
+h1 {
   color: white;
 }
 
-.box1{
+.box1 {
   height: 100vh;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
 }
 
-li:hover
-{
-background-color:#9ACD32;
+li:hover {
+  background-color: #9acd32;
 }
 
-footer{
+footer {
   height: 10rem;
   width: 100%;
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { user } from 'src/app/signin';
 import { AuthService } from 'src/app/services/auth.service';
 import { ElementRef } from '@angular/core';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,13 +13,12 @@ import { ElementRef } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
   userobj: user = new user();
-  isSignUpFailed: boolean = false;
+  isSignUpFailed: boolean = false
   showPassword: boolean = false
   icon: string = 'visibility'
 
-  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService, private elref: ElementRef) {
+  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService, private elref: ElementRef, private toast: ToastService) {
   }
-
 
   ngOnInit(): void {
   }
@@ -35,50 +35,41 @@ export class SignupComponent implements OnInit {
     confirm: ['', Validators.required]
   })
 
+  // Register user (Signup) Logic (subscription of the signup post request Observable.)
   registerUser() {
-    // console.warn(this.userDetails.value);
-
     this.userobj.email = this.userDetails.value.email;
     this.userobj.password = this.userDetails.value.password;
-    // console.warn(this.userobj);
 
     this.authservice.signUp(this.userobj).subscribe(
       (res) => {
         if (!res.error) {
           this.userDetails.reset();
           this.isSignUpFailed = false;
-          // console.warn(this.isSignUpFailed);
-          alert('Signup Successfull!')
+          sessionStorage.setItem('isSignUpFailed', `${this.isSignUpFailed}`);
+          this.toast.signUpToastr()
           this.router.navigate(['/login']);
         }
-
-        console.warn('res :' + JSON.stringify(res));
-
         return res;
       },
       (err) => {
-        console.warn(err);
-
         this.isSignUpFailed = true;
-        console.warn(this.isSignUpFailed);
       }
     );
   }
 
+  // Password Visibility Toggler
   public togglePasswordVisibility(event: any) {
     this.showPassword = !this.showPassword
     if (event.target.classList[0] == "mat-icon") {
       if (this.showPassword) {
         event.target.innerText = 'visibility_off'
-        console.log(event);
-
+        // console.log(event);
       }
       else {
         event.target.innerText = "visibility"
-        console.log(event)
+        // console.log(event)
       }
     }
-
   }
 
 }
