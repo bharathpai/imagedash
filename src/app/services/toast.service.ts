@@ -21,7 +21,8 @@ export class ToastService {
     }
   }
 
-  signUpFailedToastr() {
-    this.toastr.error("User already exist!! Try using another Email")
+  signUpFailedToastr(err) {
+    // this.toastr.error("User already exist!! Try using another Email")
+    this.toastr.error(err)
   }
 }

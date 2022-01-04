@@ -40,8 +40,8 @@ export class SignupComponent implements OnInit {
     this.userobj.email = this.userDetails.value.email;
     this.userobj.password = this.userDetails.value.password;
 
-    this.authservice.signUp(this.userobj).subscribe(
-      (res) => {
+    this.authservice.signUp(this.userobj).subscribe({
+      next: (res) => {
         if (!res.error) {
           this.userDetails.reset();
           this.isSignUpFailed = false;
@@ -51,10 +51,12 @@ export class SignupComponent implements OnInit {
         }
         return res;
       },
-      (err) => {
+      error: (err) => {
         this.isSignUpFailed = true;
+        this.toast.signUpFailedToastr(err)
       }
-    );
+    });
   }
+
 
 }
