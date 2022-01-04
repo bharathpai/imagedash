@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { ToggleService } from 'src/app/services/toggle.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,13 @@ import { ToastService } from 'src/app/services/toast.service';
 export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router,
-    private toast: ToastService) { }
+    private toast: ToastService, public toggle: ToggleService) { }
 
   islogin: boolean = false;
   hehe: any;
   userDetails: FormGroup = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9.]+@[a-zA-Z0-9]+(-)?[a-zA-Z0-9]+(.)?[a-zA-Z0-9]{2,6}?.[a-zA-Z]{2,6}$')]],
+    password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{8,}')]],
   });
 
   ngOnInit(): void {
@@ -31,11 +32,8 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.userDetails.value).subscribe((res: any) => {
       sessionStorage.setItem('access_token', res.token);
       this.islogin = false;
-      console.warn(JSON.stringify(res)); //undefined
       this.authService.currentUser = res;
-      // console.warn('inside signin ' + res);
       this.toast.logInToastr()
-      // console.warn("getloggin in child:" + this.getloggin);
       this.router.navigate(['/uploader']);
 
     }, err => {

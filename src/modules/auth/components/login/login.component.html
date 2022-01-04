@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4 col-md-7 col-sm-8 col-xs-8 mx-auto mt-5 box">
+    <div class="col-lg-5 col-md-8 col-sm-9 col-xs-9 mx-auto mt-5 box">
       <h2 class="mb-4">Login</h2>
       <form [formGroup]="userDetails" class="text-center">
         <!--Email-->
@@ -25,12 +25,16 @@
 
         <!--Password-->
         <div class="form-group  mb-5">
-          <div class="form-floating">
-            <input type="password" formControlName="password" class="form-control" id="password-1"
-              placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
-                    userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}" />
-            <label for="password-1" class="form-label">Password:</label>
-
+          <div class="input-group">
+            <div class="form-floating col">
+              <input [type]="this.toggle.showPassword ? 'text' : 'password'" formControlName="password"
+                class="form-control" id="password-1" placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
+                      userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}" />
+              <label for="password-1" class="form-label">Password:</label>
+            </div>
+            <span id="pass" class="input-group-text" (click)="this.toggle.togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{this.toggle.icon}}</mat-icon>
+            </span>
           </div>
           <small class="alert text-danger p-0" role="alert" *ngIf="
                     userDetails.controls['password'].touched &&

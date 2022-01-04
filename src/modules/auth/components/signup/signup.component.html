@@ -25,13 +25,13 @@
         <div class="form-group mb-5">
           <div class="input-group">
             <div class="form-floating col">
-              <input id="password-1" [type]="showPassword ? 'text' : 'password'" name="password"
+              <input id="password-1" [type]="this.toggle.showPassword ? 'text' : 'password'" name="password"
                 formControlName="password" class="form-control " placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
                     userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}" />
               <label for="password-1" class="form-label">Enter a Password:</label>
             </div>
-            <span id="pass" class="input-group-text" (click)="togglePasswordVisibility($event)">
-              <mat-icon matSuffix>{{icon}}</mat-icon>
+            <span id="pass" class="input-group-text" (click)="this.toggle.togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{this.toggle.icon}}</mat-icon>
             </span>
           </div>
 
@@ -50,14 +50,14 @@
         <div class="form-group mb-5">
           <div class="input-group">
             <div class="form-floating col">
-              <input [type]="showPassword ? 'text' : 'password'" name="password" formControlName="confirm"
+              <input [type]="this.toggle.showPassword ? 'text' : 'password'" name="password" formControlName="confirm"
                 class="form-control" id="password-2" placeholder="Confirm your Password" [ngClass]="{'is-invalid':!(userDetails.controls['password'].value ===
                       userDetails.controls['confirm'].value) && userDetails.controls['password'].invalid && userDetails.controls['confirm'].touched,'is-valid':userDetails.controls['confirm'].valid && (userDetails.controls['password'].value ===
                       userDetails.controls['confirm'].value)}" />
               <label for="password-2" class="form-label">Confirm your Password:</label>
             </div>
-            <span class="input-group-text" (click)="togglePasswordVisibility($event)">
-              <mat-icon matSuffix>{{icon}}</mat-icon>
+            <span class="input-group-text" (click)="this.toggle.togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{this.toggle.icon}}</mat-icon>
             </span>
           </div>
 

@@ -5,7 +5,7 @@ import { user } from 'src/app/signin';
 import { AuthService } from 'src/app/services/auth.service';
 import { ElementRef } from '@angular/core';
 import { ToastService } from 'src/app/services/toast.service';
-
+import { ToggleService } from 'src/app/services/toggle.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,10 +14,10 @@ import { ToastService } from 'src/app/services/toast.service';
 export class SignupComponent implements OnInit {
   userobj: user = new user();
   isSignUpFailed: boolean = false
-  showPassword: boolean = false
-  icon: string = 'visibility'
 
-  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService, private elref: ElementRef, private toast: ToastService) {
+  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthService,
+    private elref: ElementRef, private toast: ToastService,
+    public toggle: ToggleService) {
   }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
 
 
   userDetails: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email, Validators.pattern('^[A-Za-z0-9._%+]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-zA-Z0-9.]+@[a-zA-Z0-9]+(-)?[a-zA-Z0-9]+(.)?[a-zA-Z0-9]{2,6}?.[a-zA-Z]{2,6}$')]],
     password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{8,}')]],
     confirm: ['', Validators.required]
   })
@@ -55,21 +55,6 @@ export class SignupComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
-  }
-
-  // Password Visibility Toggler
-  public togglePasswordVisibility(event: any) {
-    this.showPassword = !this.showPassword
-    if (event.target.classList[0] == "mat-icon") {
-      if (this.showPassword) {
-        event.target.innerText = 'visibility_off'
-        // console.log(event);
-      }
-      else {
-        event.target.innerText = "visibility"
-        // console.log(event)
-      }
-    }
   }
 
 }
