@@ -8,17 +8,20 @@ import { AuthService } from './auth.service';
 })
 export class ToastService {
 
-  constructor(private auth: AuthService, private toast: ToastrService) { }
+  constructor(private auth: AuthService, private toastr: ToastrService) { }
   signUpToastr() {
     if (!this.auth.isSignedUp) {
-      this.toast.info("Signup Successfull!")
+      this.toastr.info("Signup Successfull!")
     }
   }
 
   logInToastr() {
     if (this.auth.isLoggedIn) {
-      this.toast.success("Login Successfull!")
+      this.toastr.success("Login Successfull!")
     }
   }
 
+  signUpFailedToastr() {
+    this.toastr.error("User already exist!! Try using another Email")
+  }
 }
