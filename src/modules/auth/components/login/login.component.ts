@@ -28,25 +28,23 @@ export class LoginComponent implements OnInit {
   getloggin: any = true;
 
   loginUser() {
-    console.warn(this.userDetails.value);
-    this.authService.logIn(this.userDetails.value).subscribe((res: any) => {
-      sessionStorage.setItem('access_token', res.token);
-      this.islogin = false;
-      this.authService.currentUser = res;
-      this.toast.logInToastr()
-      this.router.navigate(['/uploader']);
-
-    }, err => {
-      console.warn(err);
-
-      this.islogin = true;
-
-      setInterval(() => {
+    this.authService.logIn(this.userDetails.value).subscribe({
+      next: (res: any) => {
+        sessionStorage.setItem('access_token', res.token);
         this.islogin = false;
-        console.warn(this.islogin);
+        this.authService.currentUser = res;
+        this.toast.logInToastr()
+        this.router.navigate(['/uploader']);
 
-      }, 10000);
+      }, error: err => {
+        this.islogin = true;
+        this.toast.logInFailedToastr(JSON.stringify(err))
 
+        setInterval(() => {
+          this.islogin = false;
+        }, 10000);
+
+      }
     }
     );
   }

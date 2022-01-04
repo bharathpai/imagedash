@@ -32,9 +32,8 @@ export class AuthService {
 
   // Login Post request.
   logIn(user: user) {
-    console.warn('USER:' + user.email + '&' + user.password);
     return this.http
-      .post<any>(`${this.endpoint}/signin`, user)
+      .post<any>(`${this.endpoint}/signin`, user).pipe(catchError(this.handleError));
   }
 
   //get token from Session Storage.
@@ -65,7 +64,7 @@ export class AuthService {
 
   // Error handling.
   handleError(error: HttpErrorResponse) {
-    let msg = error.error.error
-    return throwError(() => new Error(msg));
+    let msg: string = error.error.error.message || error.error.error
+    return throwError(() => 'Error:' + ' ' + msg);
   }
 }

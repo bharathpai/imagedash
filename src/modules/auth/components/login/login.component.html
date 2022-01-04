@@ -48,7 +48,8 @@
         <!--Password-->
 
         <!--Submit Button-->
-        <div class="form-group mb-5"><button type="submit" class="btn" (click)=" loginUser()">
+        <div class="form-group mb-5"><button [disabled]="!userDetails.valid" type="submit" class="btn"
+            (click)=" loginUser()">
             Login
           </button></div>
         <!--Submit Button-->
