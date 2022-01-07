@@ -8,6 +8,8 @@ import { ListComponent } from './components/list/list.component';
 import { MaterialModule } from '../material/material.module';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { TextComponent } from './components/text/text.component';
+import { OperatorComponent } from './components/operator/operator.component';
+import { NgxFileDragDropModule } from 'ngx-file-drag-drop';
 
 
 @NgModule({
@@ -15,7 +17,8 @@ import { TextComponent } from './components/text/text.component';
     UploaderComponent,
     ListComponent,
     TariffComponent,
-    TextComponent
+    TextComponent,
+    OperatorComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,8 @@ import { TextComponent } from './components/text/text.component';
     HttpClientModule,
     ReactiveFormsModule,
     DashboardRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgxFileDragDropModule
   ]
 })
 export class DashboardModule { }
