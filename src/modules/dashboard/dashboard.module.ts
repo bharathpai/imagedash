@@ -6,12 +6,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ListComponent } from './components/list/list.component';
 import { MaterialModule } from '../material/material.module';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { TextComponent } from './components/text/text.component';
 
 
 @NgModule({
   declarations: [
     UploaderComponent,
-    ListComponent
+    ListComponent,
+    TariffComponent,
+    TextComponent
   ],
   imports: [
     CommonModule,
