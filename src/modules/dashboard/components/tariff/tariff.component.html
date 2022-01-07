@@ -1,0 +1,13 @@
+<input class="form-control mb-4 " type="file" (change)="onFileChange($event)" multiple="false" />
+<table class="sjs-table">
+  <tr *ngFor="let row of data; let indexOfrow=index">
+    <!-- <span>{{indexOfrow}}</span> -->
+    <td class="col-md-2" contenteditable="true" *ngFor="let val of row; let indexOfelement=index;"
+      [ngClass]="(indexOfelement ==2) ? 'col-md-4':'col-md-2'">
+      <app-text [value]=val [row]=indexOfrow [col]=indexOfelement></app-text>
+      <!-- <input [(ngModel)]="value" class="form-control" type="text" value={{val}}> -->
+    </td>
+  </tr>
+</table>
+
+<button class="btn btn-primary" (click)="export()">Export!</button>
