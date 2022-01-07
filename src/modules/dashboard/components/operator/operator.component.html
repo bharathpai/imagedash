@@ -1,0 +1,27 @@
+<div class="container-fluid mb-5">
+  <h4>Network Operator Name</h4>
+  <form [formGroup]="details">
+    <div class="row mb-5">
+      <div class="col">
+        <input class="form-control rounded-pill border-3" type="text" name="network-operator" id="net-op"
+          placeholder="Enter Network Operator Name">
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-md-2">
+        <input class="form-control rounded-pill border-3" type="text" name="zone" id="zone" placeholder="Zone">
+      </div>
+      <div class="col-md-2">
+        <input class="form-control rounded-pill border-3" type="text" name="price" id="price" placeholder="Price">
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary rounded-pill col-md-2">Add</button>
+      </div>
+    </div>
+    <div class="row">
+
+    </div>
+  </form>
+</div>
+
+<app-tariff></app-tariff>
