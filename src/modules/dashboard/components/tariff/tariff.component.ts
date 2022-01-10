@@ -35,9 +35,6 @@ export class TariffComponent implements OnInit {
 
       /* save data */
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      // console.log(XLSX.utils.sheet_to_html(ws, { editable: true }))
-      // console.log(this.data);
-      console.log();
 
 
     };
@@ -56,8 +53,9 @@ export class TariffComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
   }
 
-  update() {
-    console.log(this.value);
-
+  // Getting Child Data and updating to changed cells to a new value.
+  getChildData(event) {
+    // console.log(event.event);
+    this.data[event.row][event.col] = event.event
   }
 }
