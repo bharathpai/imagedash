@@ -27,7 +27,6 @@ export class UploaderComponent implements OnInit {
       const formData = new FormData()
       formData.append("file", this.selectedFile)
       this.uploadService.onFileSelected(formData).subscribe((res) => {
-        console.log(res)
         this.fileName = this.selectedFile?.name;
         this.imgUrl = res
         if (res) {
