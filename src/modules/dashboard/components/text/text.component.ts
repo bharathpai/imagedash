@@ -12,7 +12,12 @@ export class TextComponent implements OnInit {
   @Input() row?: any
   @Input() col?: any
 
+  @Output() data = new EventEmitter();
+
   ngOnInit(): void {
   }
 
+  change(event, row, col) {
+    this.data.emit({ event: event.target.value, row, col })
+  }
 }
