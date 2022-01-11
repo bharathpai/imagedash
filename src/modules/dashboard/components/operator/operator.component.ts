@@ -7,25 +7,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./operator.component.scss']
 })
 export class OperatorComponent implements OnInit {
-  zone_details: any[] = [];
+  zone_data: any[] = [];
 
   constructor(private fb: FormBuilder) { }
   details: FormGroup = this.fb.group({
-    operator: [''],
-    zone: ['', Validators.required],
-    price: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+    network_operator: [''],
+    zone_details: this.fb.group({
+      zone: ['', Validators.required],
+      price: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+    })
   })
 
   ngOnInit(): void {
   }
 
-  // Function to add an element details to zone_details.
+  // Function to add an element details to zone_data.
   add() {
-    this.zone_details.push(this.details.value)
+    // if (this.zone_data[0].length == 0) {
+    //   this.zone_data = []
+    // }
+    this.zone_data.push(this.details.value)
+    console.log(this.zone_data);
+
   }
 
-  // Function to remove an item from zone_details.
+  // Function to remove an item from zone_data.
   remove(data) {
-    this.zone_details.splice(this.zone_details.indexOf(data), 1);
+    this.zone_data.splice(this.zone_data.indexOf(data), 1);
   }
 }

@@ -2,21 +2,26 @@
   <h4>Network Operator Name</h4>
   <form [formGroup]="details">
     <div class="row mb-5">
-      <div class="col">
-        <input class="form-control rounded-pill border-3" type="text" name="network-operator" id="operator"
-          placeholder="Enter Network Operator Name" formControlName="operator">
+      <div class="col-md-4">
+        <input class="form-control rounded-pill border-2" type="text" name="network-operator" id="operator"
+          placeholder="Enter Network Operator Name" formControlName="network_operator">
       </div>
     </div>
     <div class="row ">
-      <div class="col-md-2">
-        <input class="form-control rounded-pill border-3" type="text" name="zone" id="zone" placeholder="Zone"
-          formControlName="zone">
+      <div formGroupName="zone_details">
+        <div class="row">
+          <div class="col-md-2">
+            <input class="form-control rounded-pill border-2" type="text" name="zone" id="zone" placeholder="Zone"
+              formControlName="zone">
+          </div>
+          <div class="col-md-2">
+            <input class="form-control rounded-pill border-2" type="text" name="price" id="price" placeholder="$0.00"
+              formControlName="price">
+          </div>
+        </div>
       </div>
-      <div class="col-md-2">
-        <input class="form-control rounded-pill border-3" type="text" name="price" id="price" placeholder="$0.00"
-          formControlName="price">
-      </div>
-      <div class="col-md-4 mb-4">
+      <!-- Add Button -->
+      <div class="col-md-4 mb-4 mt-4">
         <button class="btn btn-grad rounded-pill col-md-2" (click)="add()" [disabled]="!this.details.valid">Add</button>
       </div>
     </div>
@@ -32,15 +37,15 @@
           <tr>
             <th>Zone</th>
             <th>Price/MB</th>
-            <th></th>
+            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of zone_details">
-            <td>{{data.zone}} </td>
-            <td>{{data.price | currency}}</td>
+          <tr *ngFor="let data of zone_data">
+            <td>{{data.zone_details["zone"] }} </td>
+            <td>{{data.zone_details["price"] | currency}}</td>
             <td>
-              <button class="btn btn-danger" (click)="remove(data)">
+              <button class="btn btn-outline-danger" (click)="remove(data)">
                 <i class="bi bi-trash-fill"></i>
               </button></td>
           </tr>

@@ -1,5 +1,5 @@
 .btn-grad {
-  background-image: linear-gradient(to right, #0f7eb2 0%, #00558b 100%);
+  background-image: linear-gradient(to right, #965fe9 0%, #965fe9 100%);
 }
 .btn-grad {
   padding: 0.7em 2rem;
@@ -17,4 +17,10 @@
   background-position: left center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+
+.form-control:focus {
+  border-color: #965fe9;
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
