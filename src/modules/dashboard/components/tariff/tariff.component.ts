@@ -34,9 +34,7 @@ export class TariffComponent implements OnInit {
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
       /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-
-
+      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { blankrows: false, header: 1, range: 1 }));
     };
     reader.readAsArrayBuffer(target.files[0]);
   }
