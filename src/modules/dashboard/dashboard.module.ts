@@ -10,6 +10,7 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { TextComponent } from './components/text/text.component';
 import { OperatorComponent } from './components/operator/operator.component';
 import { NgxFileDragDropModule } from 'ngx-file-drag-drop';
+import { ButtonComponent } from './components/button/button.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { NgxFileDragDropModule } from 'ngx-file-drag-drop';
     ListComponent,
     TariffComponent,
     TextComponent,
-    OperatorComponent
+    OperatorComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule,

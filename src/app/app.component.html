@@ -4,25 +4,23 @@
     <a class="navbar-brand mx-3" href="#">
       <img src="../assets/id-logo.png" alt="imagedash-logo" height="55">
     </a>
-    <h1>{{title}}</h1>
+    <h1 class="mt-2">{{title}}</h1>
   </div>
 
-  <ul class="navbar-nav d-flex flex-row px-5">
-    <li class="nav-item p-4" *ngIf="!isLoggedIn()">
+  <ul class="navbar-nav d-flex flex-row px-5 ">
+    <li class="nav-item p-4 " *ngIf="!isLoggedIn()">
       <a class="nav-link text-light" routerLink="/signup">Signup</a>
     </li>
-    <li class="nav-item p-4" *ngIf="!isLoggedIn()">
+    <li class="nav-item p-4 " *ngIf="!isLoggedIn()">
       <a class="nav-link text-light" routerLink="/login">Login</a>
     </li>
-    <li class="nav-item p-4">
+    <li class="nav-item p-4 ">
       <a class="nav-link text-light" routerLink="/uploader">Upload</a>
     </li>
-    <!--Just temperory-->
-    <li class="nav-item p-4">
+    <li class="nav-item p-4 ">
       <a class="nav-link text-light" routerLink="/operator">Operator</a>
     </li>
-    <!--Just temperory-->
-    <li class="nav-item p-4" *ngIf="isLoggedIn()">
+    <li class="nav-item p-4 " *ngIf="isLoggedIn()">
       <a class="nav-link text-light" (click)="logOut()" routerLink="/login">Logout</a>
     </li>
   </ul>
@@ -34,7 +32,7 @@
 <!--Footer-->
 <!-- <footer class="mt-5 footer w-100">
   <div class="m-auto">
-    <p class="m-0 text-center">&copy; Imagedash</p>
+    <p class="m-0 text-center">&copy; Imagedash 2021-22</p>
   </div>
 </footer> -->
 <!--Footer-->
