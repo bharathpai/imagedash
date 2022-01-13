@@ -7,14 +7,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./operator.component.scss']
 })
 export class OperatorComponent implements OnInit {
+
   zone_data: any[] = [];
+  btnText: any = ["Add", `<i class="bi bi-trash-fill"></i>`]
 
   constructor(private fb: FormBuilder) { }
   details: FormGroup = this.fb.group({
     network_operator: [''],
     zone_details: this.fb.group({
-      zone: ['', Validators.required],
-      price: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+      zone_name: ['', [Validators.required, Validators.pattern(/^(Zone)+\s[1-9]+$/)]],
+      zone_price: ['', [Validators.required, Validators.pattern(/^[+-]?([1-9]+\.?[0-9]*|\.[0-9]+)$/)]]
     })
   })
 

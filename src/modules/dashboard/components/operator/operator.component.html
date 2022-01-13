@@ -10,19 +10,20 @@
     <div class="row ">
       <div formGroupName="zone_details">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-2 mb-5 ">
             <input class="form-control rounded-pill border-2" type="text" name="zone" id="zone" placeholder="Zone"
-              formControlName="zone">
+              formControlName="zone_name">
+            <small></small>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 mb-3">
             <input class="form-control rounded-pill border-2" type="text" name="price" id="price" placeholder="$0.00"
-              formControlName="price">
+              formControlName="zone_price">
           </div>
         </div>
       </div>
       <!-- Add Button -->
       <div class="col-md-4 mb-4 mt-4">
-        <button class="btn btn-grad rounded-pill col-md-2" (click)="add()" [disabled]="!this.details.valid">Add</button>
+        <app-button [btnText]="this.btnText[0]" [isDisabled]="!this.details.valid" (btnClick)="add()"></app-button>
       </div>
     </div>
   </form>
@@ -42,12 +43,15 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of zone_data">
-            <td>{{data.zone_details["zone"] }} </td>
-            <td>{{data.zone_details["price"] | currency}}</td>
+            <td>{{data.zone_details["zone_name"] }} </td>
+            <td>{{data.zone_details["zone_price"] | currency}}</td>
             <td>
               <button class="btn btn-outline-danger" (click)="remove(data)">
                 <i class="bi bi-trash-fill"></i>
-              </button></td>
+              </button>
+              <!-- <app-button class="btn btn-outline-primary" (btnClick)="remove(data)">
+              </app-button> -->
+            </td>
           </tr>
         </tbody>
       </table>
