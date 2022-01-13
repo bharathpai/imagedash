@@ -1,7 +1,7 @@
 .box {
   height: 22rem;
   overflow: scroll;
-  border: #965fe9 solid;
+  border: #965fe9 dotted;
 }
 
 .form-control:focus {
@@ -13,24 +13,4 @@
 table {
   border-collapse: separate;
   border-spacing: 1em 1em;
-}
-.btn-grad {
-  background-image: linear-gradient(to right, #965fe9 0%, #965fe9 100%);
-}
-.btn-grad {
-  padding: 0.6em 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  display: block;
-}
-
-.btn-grad:hover {
-  background-position: left center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
 }

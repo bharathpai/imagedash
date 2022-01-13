@@ -9,7 +9,7 @@ type AOA = any[][];
   styleUrls: ['./tariff.component.scss']
 })
 export class TariffComponent implements OnInit {
-
+  btnText: string[] = ["Add", "Confirm", "Cancel"]
   constructor() { }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class TariffComponent implements OnInit {
     reader.readAsArrayBuffer(target.files[0]);
   }
 
-  export(): void {
+  confirm(): void {
     /* generate worksheet */
     const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
 

@@ -21,15 +21,16 @@
           [ngClass]="(indexOfelement ==2) ? 'col-md-4':'col-md-2'">
           <app-text [value]=val [row]=indexOfrow [col]=indexOfelement (data)="getChildData($event)">
           </app-text>
-          <!-- <input [(ngModel)]="value" class="form-control" type="text" value={{val}}> -->
         </td>
       </tr>
     </table>
   </div>
   <div class="row mt-4">
     <div class="col-md-4 mb-4">
-      <button class="btn btn-grad rounded-pill col-md-2" (click)="export()"
-        [disabled]="data[0].length == 0">Export</button>
+      <!-- <button class="btn btn-grad rounded-pill col-md-2 glow-on-hover" (click)="export()"
+        [disabled]="data[0].length == 0">Confirm</button> -->
+      <app-button [hidden]="data[0].length == 0" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>
+      <app-button [hidden]="data[0].length == 0" class="mx-2" [btnText]="this.btnText[2]"></app-button>
     </div>
   </div>
 </div>
