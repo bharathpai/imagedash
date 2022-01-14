@@ -5,7 +5,12 @@
         multiple="false" />
     </div>
   </div>
-  <div class="mt-5 row" [ngClass]="data[0].length > 0 ? 'box':'d-none'">
+  <div class="row mt-4 mx-5">
+    <div class="col-md-12 mb-4 d-flex justify-content-end">
+      <app-button [hidden]="data[0].length == 0" [btnText]="this.btnText[0]"></app-button>
+    </div>
+  </div>
+  <div class="mt-2 mx-3 row" [ngClass]="data[0].length > 0 ? 'box':'d-none'">
     <table class="border border-4">
       <thead>
         <tr>
@@ -25,8 +30,8 @@
       </tr>
     </table>
   </div>
-  <div class="row mt-4">
-    <div class="col-md-4 mb-4">
+  <div class="row mt-4 mx-5">
+    <div class="col-md-12 mb-4 d-flex justify-content-end">
       <!-- <button class="btn btn-grad rounded-pill col-md-2 glow-on-hover" (click)="export()"
         [disabled]="data[0].length == 0">Confirm</button> -->
       <app-button [hidden]="data[0].length == 0" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>

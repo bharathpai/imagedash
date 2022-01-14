@@ -17,7 +17,6 @@ export class TariffComponent implements OnInit {
   data: AOA = [[], []];
   fileName: string = 'SheetJS.csv';
   value: any
-  // @Input() sample: any
 
   onFileChange(evt: any) {
     /* wire up file reader */
@@ -53,7 +52,6 @@ export class TariffComponent implements OnInit {
 
   // Getting Child Data and updating to changed cells to a new value.
   getChildData(event) {
-    // console.log(event.event);
     this.data[event.row][event.col] = event.event
   }
 }

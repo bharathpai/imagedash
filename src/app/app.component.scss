@@ -40,12 +40,16 @@ a {
   color: white;
 }
 
+li {
+  transition: 0.4s;
+  padding: 1.5rem 1rem;
+}
 li:hover {
   background-color: #965fe9;
 }
 a,
 li:hover {
-  padding: 0.8rem 0rem;
+  padding: 1rem 1rem !important;
 }
 
 footer {
