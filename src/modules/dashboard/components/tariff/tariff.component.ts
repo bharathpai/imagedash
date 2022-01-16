@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { OperatorService } from 'src/app/services/operator.service';
 import * as XLSX from 'xlsx';
 
 type AOA = any[][];
@@ -10,12 +11,23 @@ type AOA = any[][];
 })
 export class TariffComponent implements OnInit {
   btnText: string[] = ["Add", "Confirm", "Cancel"]
-  constructor() { }
+  sheetHeaders = [
+    'zone',
+    'country',
+    'network_operator',
+    'network_code',
+    'increment_type',
+  ];
+  isLoaded: boolean = false;
+
+  constructor(private op: OperatorService) { }
 
   ngOnInit(): void {
+    this.op.networkOperator.subscribe(msg => console.log(msg))
   }
-  data: AOA = [[], []];
-  fileName: string = 'SheetJS.csv';
+
+  data: AOA = [];
+  fileName: string = 'tariff_new.xlsx';
   value: any
 
   onFileChange(evt: any) {
@@ -32,6 +44,7 @@ export class TariffComponent implements OnInit {
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
+      this.isLoaded = true
       /* save data */
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { blankrows: false, header: 1, range: 1 }));
     };
@@ -39,19 +52,37 @@ export class TariffComponent implements OnInit {
   }
 
   confirm(): void {
+    console.log(this.data);
+
     /* generate worksheet */
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data);
 
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
+
     /* save to file */
-    XLSX.writeFile(wb, this.fileName);
+    // XLSX.writeFile(wb, this.fileName); // Optional (else just console the data)
   }
 
   // Getting Child Data and updating to changed cells to a new value.
   getChildData(event) {
-    this.data[event.row][event.col] = event.event
+    this.data[event.row][event.col] = event.value
+  }
+
+  // To add an empty row in Tariff form.
+  addRow() {
+    this.data.push(['', '', '', '', ''])
+  }
+
+  // To delete a row in Tariff form.
+  deleteRow(row) {
+    this.data.splice(row, 1)
+  }
+
+  // To discard all edited changes in  Tariff form.
+  cancel() {
+    this.isLoaded = false
   }
 }

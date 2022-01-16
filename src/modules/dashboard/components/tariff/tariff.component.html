@@ -5,13 +5,13 @@
         multiple="false" />
     </div>
   </div>
-  <div class="row mt-4 mx-5">
+  <div class="row mt-4 mx-5" [ngClass]="isLoaded? '':'d-none'">
     <div class="col-md-12 mb-4 d-flex justify-content-end">
-      <app-button [hidden]="data[0].length == 0" [btnText]="this.btnText[0]"></app-button>
+      <app-button [btnText]="this.btnText[0]" (btnClick)="addRow()"></app-button>
     </div>
   </div>
-  <div class="mt-2 mx-3 row" [ngClass]="data[0].length > 0 ? 'box':'d-none'">
-    <table class="border border-4">
+  <div class="mt-2 mx-3 row" [ngClass]="isLoaded? 'box':'d-none'">
+    <table class=" border border-4">
       <thead>
         <tr>
           <th>Zone</th>
@@ -21,21 +21,22 @@
           <th>Increment</th>
         </tr>
       </thead>
-      <tr *ngFor="let row of data; let indexOfrow=index">
-        <td class="col-md-2" *ngFor="let val of row; let indexOfelement=index;"
-          [ngClass]="(indexOfelement ==2) ? 'col-md-4':'col-md-2'">
-          <app-text [value]=val [row]=indexOfrow [col]=indexOfelement (data)="getChildData($event)">
+      <tr *ngFor="let row of data; let rowIndex=index;">
+        <td class="col-md-2" *ngFor="let val of row | keyvalue" [ngClass]="(val.key =='2') ? 'col-md-4':'col-md-2'">
+          <app-text [value]=val.value [row]=rowIndex [col]=val.key (data)="getChildData($event)">
           </app-text>
         </td>
+        <td class="col-md-1"> <button class="btn btn-outline-dark" (click)="deleteRow(rowIndex)">
+            <i class=" bi bi-trash-fill"></i>
+          </button></td>
       </tr>
     </table>
   </div>
   <div class="row mt-4 mx-5">
     <div class="col-md-12 mb-4 d-flex justify-content-end">
-      <!-- <button class="btn btn-grad rounded-pill col-md-2 glow-on-hover" (click)="export()"
-        [disabled]="data[0].length == 0">Confirm</button> -->
-      <app-button [hidden]="data[0].length == 0" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>
-      <app-button [hidden]="data[0].length == 0" class="mx-2" [btnText]="this.btnText[2]"></app-button>
+      <app-button [ngClass]="isLoaded? '':'d-none'" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>
+      <app-button [ngClass]="isLoaded? '':'d-none'" class="mx-2" [btnText]="this.btnText[2]" (btnClick)="cancel()">
+      </app-button>
     </div>
   </div>
 </div>
