@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { OperatorService } from 'src/app/services/operator.service';
 @Component({
   selector: 'app-operator',
   templateUrl: './operator.component.html',
@@ -11,7 +11,7 @@ export class OperatorComponent implements OnInit {
   zone_data: any[] = [];
   btnText: any = ["Add", `<i class="bi bi-trash-fill"></i>`]
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private op: OperatorService) { }
   details: FormGroup = this.fb.group({
     network_operator: [''],
     zone_details: this.fb.group({
@@ -21,20 +21,18 @@ export class OperatorComponent implements OnInit {
   })
 
   ngOnInit(): void {
+
   }
 
   // Function to add an element details to zone_data.
   add() {
-    // if (this.zone_data[0].length == 0) {
-    //   this.zone_data = []
-    // }
     this.zone_data.push(this.details.value)
-    console.log(this.zone_data);
-
+    this.op.networkOperator.next(this.zone_data)
   }
 
   // Function to remove an item from zone_data.
   remove(data) {
     this.zone_data.splice(this.zone_data.indexOf(data), 1);
+    this.op.networkOperator.next(this.zone_data)
   }
 }

@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TextComponent implements OnInit {
 
   constructor() { }
-  @Input() value?: string;
+  @Input() value?: string
   @Input() row?: any
   @Input() col?: any
 
@@ -18,6 +18,7 @@ export class TextComponent implements OnInit {
   }
 
   change(event, row, col) {
-    this.data.emit({ event: event.target.value, row, col })
+    this.data.emit({ value: event.target.value, row, col })
   }
+
 }
