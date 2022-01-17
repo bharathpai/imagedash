@@ -10,31 +10,36 @@
       <app-button [btnText]="this.btnText[0]" (btnClick)="addRow()"></app-button>
     </div>
   </div>
-  <div class="mt-2 mx-3 row" [ngClass]="isLoaded? 'box':'d-none'">
-    <table class="table table-secondary table-hover table-striped border border-4">
-      <h4 class="text-danger" *ngIf="data.length==0">Please add a new row or cancel the changes.</h4>
-      <thead *ngIf="data.length>0">
-        <tr>
-          <th>No:</th>
-          <th>Zone</th>
-          <th>Country</th>
-          <th>Network Operator</th>
-          <th>Network Code</th>
-          <th>Increment</th>
+  <form [formGroup]="tariff">
+    <div class="mt-2 mx-3 row" [ngClass]="isLoaded? 'box':'d-none'">
+      <table class="table table-secondary table-hover table-striped border border-4">
+        <h4 class="text-danger" *ngIf="data.length==0">Please add a new row or cancel the changes.</h4>
+        <thead *ngIf="data.length>0">
+          <tr>
+            <th>No:</th>
+            <th>Zone</th>
+            <th>Country</th>
+            <th>Network Operator</th>
+            <th>Network Code</th>
+            <th>Increment</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let row of data; let rowIndex=index;">
+          <td>{{rowIndex+1}}</td>
+          <td class="col-md-2" *ngFor="let val of row | keyvalue"
+            [ngClass]="(val.key =='network_operator') ? 'col-md-4':''">
+            <app-text class="bg-transparent" [value]=val.value [row]=rowIndex [col]=val.key
+              (data)="getChildData($event)" ngDefaultControl [formControlName]="val.key">
+            </app-text>
+          </td>
+          <td class="col-md-1 bg-transparent"> <button class="btn btn-outline-dark" (click)="deleteRow(rowIndex)">
+              <i class=" bi bi-trash-fill"></i>
+            </button></td>
         </tr>
-      </thead>
-      <tr *ngFor="let row of data; let rowIndex=index;">
-        <td>{{rowIndex+1}}</td>
-        <td class="col-md-2" *ngFor="let val of row | keyvalue" [ngClass]="(val.key =='2') ? 'col-md-4':''">
-          <app-text class="bg-transparent" [value]=val.value [row]=rowIndex [col]=val.key (data)="getChildData($event)">
-          </app-text>
-        </td>
-        <td class="col-md-1 bg-transparent"> <button class="btn btn-outline-dark" (click)="deleteRow(rowIndex)">
-            <i class=" bi bi-trash-fill"></i>
-          </button></td>
-      </tr>
-    </table>
-  </div>
+      </table>
+    </div>
+  </form>
+
   <div class="row mt-4 mx-5">
     <div class="col-md-12 mb-4 d-flex justify-content-end">
       <app-button [ngClass]="isLoaded? '':'d-none'" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>

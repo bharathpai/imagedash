@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { OperatorService } from 'src/app/services/operator.service';
 import * as XLSX from 'xlsx';
-
 type AOA = any[][];
 
 @Component({
@@ -20,7 +20,15 @@ export class TariffComponent implements OnInit {
   ];
   isLoaded: boolean = false;
 
-  constructor(private op: OperatorService) { }
+  constructor(private op: OperatorService, private fb: FormBuilder) { }
+
+  tariff = this.fb.group({
+    zone: ["", Validators.required],
+    country: ["", Validators.required],
+    network_operator: ["", Validators.required],
+    network_code: ["", Validators.required],
+    increment_type: ["", Validators.required],
+  })
 
   ngOnInit(): void {
     this.op.networkOperator.subscribe(msg => console.log(msg))
@@ -46,7 +54,7 @@ export class TariffComponent implements OnInit {
 
       this.isLoaded = true
       /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { blankrows: false, header: 1, range: 1 }));
+      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { blankrows: false, header: this.sheetHeaders, range: 1 }));
     };
     reader.readAsArrayBuffer(target.files[0]);
   }
