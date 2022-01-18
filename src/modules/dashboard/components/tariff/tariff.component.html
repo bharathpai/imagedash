@@ -24,21 +24,26 @@
         <div class="row mb-3" *ngFor="let item of TariffItem().controls;index as rowIndex" [formGroupName]="rowIndex">
           <!-- <div class="col-md-1">{{rowIndex+1}}</div> -->
           <div class="col-md-2 form-group">
-            <input class="form-control rounded-pill" type="text" formControlName="zone">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="zone">
           </div>
           <div class="col-md-2 form-group">
-            <input class="form-control rounded-pill" type="text" formControlName="country">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="country">
           </div>
           <div class="col-md-3 form-group">
-            <input class="form-control rounded-pill" type="text" formControlName="network_operator">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="network_operator">
           </div>
           <div class="col-md-2 form-group">
-            <input class="form-control rounded-pill" type="text" formControlName="network_code">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="network_code">
           </div>
           <div class="col-md-2 form-group">
-            <input class="form-control rounded-pill" type="text" formControlName="increment_type">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="increment_type">
           </div>
-          <div class="col-md-1"><button class="btn btn-outline-dark">
+          <div class="col-md-1"><button type="button" class="btn btn-outline-dark" (click)="deleteRow(rowIndex)">
               <i class=" bi bi-trash-fill"></i>
             </button></div>
         </div>

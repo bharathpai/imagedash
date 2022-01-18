@@ -27,7 +27,7 @@ export class TariffComponent implements OnInit {
     }
   );
 
-  data: AOA = [];
+  data: any;
   isLoaded: boolean = false;
   fileName: string = 'tariff_new.xlsx';
 
@@ -94,16 +94,38 @@ export class TariffComponent implements OnInit {
 
   // To add an empty row in Tariff form.
   addRow() {
-    this.data.push(['', '', '', '', ''])
+    let item = this.fb.group({
+      zone: [''],
+      country: [''],
+      network_operator: [''],
+      network_code: [''],
+      increment_type: ['']
+    })
+
+    this.data.push({
+      zone: '',
+      country: '',
+      network_operator: '',
+      network_code: '',
+      increment_type: ''
+    })
+    this.TariffItem().push(item)
   }
+
 
   // To delete a row in Tariff form.
   deleteRow(row) {
     this.data.splice(row, 1)
+    this.TariffItem().removeAt(row)
   }
 
   // To discard all edited changes in  Tariff form.
   cancel() {
     this.isLoaded = false
+  }
+
+  changeEntries(event, rowIndex) {
+    this.data[rowIndex][event.target.getAttribute('formControlName')] = event.target.value
+    console.log(this.TariffItem());
   }
 }
