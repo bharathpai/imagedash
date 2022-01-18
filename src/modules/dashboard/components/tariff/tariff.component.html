@@ -4,6 +4,10 @@
       <input class="form-control mb-4 rounded-pill border-2" type="file" (change)="onFileChange($event)"
         multiple="false" />
     </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      <a [href]="this.fetch.baseUrl3">Generate sample sheet</a>
+    </div>
   </div>
   <div class="row mt-4 mx-5" [ngClass]="isLoaded? '':'d-none'">
     <div class="col-md-12 mb-4 d-flex justify-content-end">
@@ -17,7 +21,7 @@
       <div class="col-md-2">Country</div>
       <div class="col-md-3">Network Operator</div>
       <div class="col-md-2">Network Code</div>
-      <div class="col-md-2">Increment Type</div>
+      <div class="col-md-2">Increment</div>
     </div>
     <form [formGroup]="tariffForm">
       <div formArrayName="tariffItem">
@@ -36,8 +40,10 @@
               formControlName="network_operator">
           </div>
           <div class="col-md-2 form-group">
-            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
-              formControlName="network_code">
+            <input class="form-control rounded-pill " type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="network_code"
+              [ngClass]="{'text-danger':item.get('network_code')?.invalid,'text-success':item.get('network_code')?.valid}">
+            <!-- <button type="submit" (click)="show()">Showme</button> -->
           </div>
           <div class="col-md-2 form-group">
             <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"

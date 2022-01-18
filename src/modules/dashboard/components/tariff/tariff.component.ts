@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FetchService } from 'src/app/services/fetch.service';
 import { OperatorService } from 'src/app/services/operator.service';
+import { ValidatorService } from 'src/app/services/validator.service';
 import * as XLSX from 'xlsx';
 type AOA = any[][];
 
@@ -26,15 +28,31 @@ export class TariffComponent implements OnInit {
       tariffItem: this.fb.array([]),
     }
   );
+  mnc: any = []
 
   data: any;
   isLoaded: boolean = false;
   fileName: string = 'tariff_new.xlsx';
 
-  constructor(private op: OperatorService, private fb: FormBuilder) { }
+  constructor(private op: OperatorService, private fb: FormBuilder, public fetch: FetchService, private validator: ValidatorService) { }
 
   ngOnInit(): void {
     this.op.networkOperator.subscribe(msg => console.log(msg))
+    // this.fetch.getData().subscribe((res) => console.log(res))
+  }
+
+  hasError(field: string, error: string): boolean {
+    if (error === 'any' || error === '') {
+      return (
+        this.tariffForm.controls[field].dirty &&
+        this.tariffForm.controls[field].invalid
+      );
+    }
+
+    return (
+      this.tariffForm.controls[field].dirty &&
+      this.tariffForm.controls[field].hasError(error)
+    );
   }
 
   onFileChange(evt: any) {
@@ -63,12 +81,12 @@ export class TariffComponent implements OnInit {
           zone: [element['zone']],
           country: [element['country']],
           network_operator: [element['network_operator']],
-          network_code: [element['network_code']],
+          network_code: [element['network_code'], [Validators.required], [this.validator.ncValidator()]],
           increment_type: [element['increment_type']]
         })
         this.TariffItem().push(item)
       })
-
+      // this.validator.checkNcExists('a')  
     };
     reader.readAsArrayBuffer(target.files[0]);
   }
@@ -83,10 +101,10 @@ export class TariffComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-
     /* save to file */
     // XLSX.writeFile(wb, this.fileName); // Optional (else just console the data)
   }
+
 
   TariffItem(): FormArray {
     return this.tariffForm.get('tariffItem') as FormArray;
@@ -126,6 +144,12 @@ export class TariffComponent implements OnInit {
 
   changeEntries(event, rowIndex) {
     this.data[rowIndex][event.target.getAttribute('formControlName')] = event.target.value
-    console.log(this.TariffItem());
+    // console.log(this.TariffItem());
+    this.TariffItem()
   }
-}
+
+  show() {
+    console.log(this.TariffItem().controls);
+  }
+
+} 
