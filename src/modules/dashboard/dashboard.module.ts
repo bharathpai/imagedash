@@ -7,7 +7,6 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ListComponent } from './components/list/list.component';
 import { MaterialModule } from '../material/material.module';
 import { TariffComponent } from './components/tariff/tariff.component';
-import { TextComponent } from './components/text/text.component';
 import { OperatorComponent } from './components/operator/operator.component';
 import { NgxFileDragDropModule } from 'ngx-file-drag-drop';
 import { ButtonComponent } from './components/button/button.component';
@@ -18,7 +17,6 @@ import { ButtonComponent } from './components/button/button.component';
     UploaderComponent,
     ListComponent,
     TariffComponent,
-    TextComponent,
     OperatorComponent,
     ButtonComponent
   ],
