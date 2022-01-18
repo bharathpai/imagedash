@@ -10,35 +10,42 @@
       <app-button [btnText]="this.btnText[0]" (btnClick)="addRow()"></app-button>
     </div>
   </div>
-  <form [formGroup]="tariff">
-    <div class="mt-2 mx-3 row" [ngClass]="isLoaded? 'box':'d-none'">
-      <table class="table table-secondary table-hover table-striped border border-4">
-        <h4 class="text-danger" *ngIf="data.length==0">Please add a new row or cancel the changes.</h4>
-        <thead *ngIf="data.length>0">
-          <tr>
-            <th>No:</th>
-            <th>Zone</th>
-            <th>Country</th>
-            <th>Network Operator</th>
-            <th>Network Code</th>
-            <th>Increment</th>
-          </tr>
-        </thead>
-        <tr *ngFor="let row of data; let rowIndex=index;">
-          <td>{{rowIndex+1}}</td>
-          <td class="col-md-2" *ngFor="let val of row | keyvalue"
-            [ngClass]="(val.key =='network_operator') ? 'col-md-4':''">
-            <app-text class="bg-transparent" [value]=val.value [row]=rowIndex [col]=val.key
-              (data)="getChildData($event)" ngDefaultControl [formControlName]="val.key">
-            </app-text>
-          </td>
-          <td class="col-md-1 bg-transparent"> <button class="btn btn-outline-dark" (click)="deleteRow(rowIndex)">
-              <i class=" bi bi-trash-fill"></i>
-            </button></td>
-        </tr>
-      </table>
+  <div class="container-fluid" [ngClass]="isLoaded? 'tariff-box':'d-none'">
+    <div class="row">
+      <!-- <div class="col-md-1">No:</div> -->
+      <div class="col-md-2">Zone</div>
+      <div class="col-md-2">Country</div>
+      <div class="col-md-3">Network Operator</div>
+      <div class="col-md-2">Network Code</div>
+      <div class="col-md-2">Increment Type</div>
     </div>
-  </form>
+    <form [formGroup]="tariffForm">
+      <div formArrayName="tariffItem">
+        <div class="row mb-3" *ngFor="let item of TariffItem().controls;index as rowIndex" [formGroupName]="rowIndex">
+          <!-- <div class="col-md-1">{{rowIndex+1}}</div> -->
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" formControlName="zone">
+          </div>
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" formControlName="country">
+          </div>
+          <div class="col-md-3 form-group">
+            <input class="form-control rounded-pill" type="text" formControlName="network_operator">
+          </div>
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" formControlName="network_code">
+          </div>
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" formControlName="increment_type">
+          </div>
+          <div class="col-md-1"><button class="btn btn-outline-dark">
+              <i class=" bi bi-trash-fill"></i>
+            </button></div>
+        </div>
+      </div>
+    </form>
+
+  </div>
 
   <div class="row mt-4 mx-5">
     <div class="col-md-12 mb-4 d-flex justify-content-end">

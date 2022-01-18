@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormArray } from '@angular/forms';
 import { OperatorService } from 'src/app/services/operator.service';
 import * as XLSX from 'xlsx';
 type AOA = any[][];
@@ -11,6 +11,7 @@ type AOA = any[][];
 })
 export class TariffComponent implements OnInit {
   btnText: string[] = ["Add", "Confirm", "Cancel"]
+
   sheetHeaders = [
     'zone',
     'country',
@@ -18,25 +19,23 @@ export class TariffComponent implements OnInit {
     'network_code',
     'increment_type',
   ];
+
+  // Initializing tariffForm
+  tariffForm = this.fb.group(
+    {
+      tariffItem: this.fb.array([]),
+    }
+  );
+
+  data: AOA = [];
   isLoaded: boolean = false;
+  fileName: string = 'tariff_new.xlsx';
 
   constructor(private op: OperatorService, private fb: FormBuilder) { }
-
-  tariff = this.fb.group({
-    zone: ["", Validators.required],
-    country: ["", Validators.required],
-    network_operator: ["", Validators.required],
-    network_code: ["", Validators.required],
-    increment_type: ["", Validators.required],
-  })
 
   ngOnInit(): void {
     this.op.networkOperator.subscribe(msg => console.log(msg))
   }
-
-  data: AOA = [];
-  fileName: string = 'tariff_new.xlsx';
-  value: any
 
   onFileChange(evt: any) {
     /* wire up file reader */
@@ -55,6 +54,21 @@ export class TariffComponent implements OnInit {
       this.isLoaded = true
       /* save data */
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { blankrows: false, header: this.sheetHeaders, range: 1 }));
+
+      console.log(this.data);
+
+      this.data.forEach((element) => {
+
+        let item = this.fb.group({
+          zone: [element['zone']],
+          country: [element['country']],
+          network_operator: [element['network_operator']],
+          network_code: [element['network_code']],
+          increment_type: [element['increment_type']]
+        })
+        this.TariffItem().push(item)
+      })
+
     };
     reader.readAsArrayBuffer(target.files[0]);
   }
@@ -74,9 +88,8 @@ export class TariffComponent implements OnInit {
     // XLSX.writeFile(wb, this.fileName); // Optional (else just console the data)
   }
 
-  // Getting Child Data and updating to changed cells to a new value.
-  getChildData(event) {
-    this.data[event.row][event.col] = event.value
+  TariffItem(): FormArray {
+    return this.tariffForm.get('tariffItem') as FormArray;
   }
 
   // To add an empty row in Tariff form.
