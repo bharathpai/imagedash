@@ -1,12 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 files">
       <input class="form-control mb-4 rounded-pill border-2" type="file" (change)="onFileChange($event)"
-        multiple="false" />
+        accept=".xlsx,.csv" multiple="false" />
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3">
-      <a [href]="this.fetch.baseUrl3">Generate sample sheet</a>
+    <!-- <div class="col-md-1"></div> -->
+    <div class="col-md-2 d-flex align-items-center">
+      <span><a class="text-decoration-none" [href]="this.fetch.baseUrl3">Generate sample sheet </a>
+        <i class="bi bi-download"></i></span>
     </div>
   </div>
   <div class="row mt-4 mx-5" [ngClass]="isLoaded? '':'d-none'">
@@ -42,8 +43,8 @@
           <div class="col-md-2 form-group">
             <input class="form-control rounded-pill " type="text" (change)="changeEntries($event,rowIndex)"
               formControlName="network_code"
-              [ngClass]="{'text-danger':item.get('network_code')?.invalid,'text-success':item.get('network_code')?.valid}">
-            <!-- <button type="submit" (click)="show()">Showme</button> -->
+              [ngClass]="item.get('network_code')?.invalid ? 'text-danger':'text-success'">
+            <!-- <button type=" submit" (click)="show()">Showme</button> -->
           </div>
           <div class="col-md-2 form-group">
             <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
@@ -63,6 +64,7 @@
       <app-button [ngClass]="isLoaded? '':'d-none'" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>
       <app-button [ngClass]="isLoaded? '':'d-none'" class="mx-2" [btnText]="this.btnText[2]" (btnClick)="cancel()">
       </app-button>
+      <app-button [ngClass]="isLoaded? '':'d-none'" [btnText]="this.btnText[3]" (btnClick)="download()"></app-button>
     </div>
   </div>
 </div>

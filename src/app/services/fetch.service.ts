@@ -16,10 +16,11 @@ export class FetchService {
     this.http.get('assets/mnc.json').subscribe((data) => {
       this.nc = []
       for (let i in data) {
-        this.nc.push(parseInt(data[i].mcc + data[i].mnc))
+        this.nc.push(parseInt(data[i]['Network Code']))
       }
       console.log(this.nc);
       return this.nc
     })
   }
+  
 }

@@ -28,4 +28,8 @@ export class ToastService {
   logInFailedToastr(msg) {
     this.toastr.error(msg)
   }
+
+  emptyUpload(message) {
+    this.toastr.error(message)
+  }
 }
