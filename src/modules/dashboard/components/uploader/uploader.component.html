@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <input class="form-control mb-4" type="file" name="file" (change)="selectFile($event)">
+      <div class="file-upload col-md-3 mb-3">
+        <button class="form-control text-light" [disabled]="!selectedFile"
+          [ngClass]="selectedFile ? 'bg-primary' : 'bg-secondary'" (click)="upload()">Click to Upload</button>
+      </div>
+      <span class="mb-4" [ngClass]="{'text-success':message}">{{message || "No file uploaded yet."}}</span>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      <span>Preview of the Uploaded Image will appear here:</span>
+      <img class="col-md-12 border border-primary border-4 rounded" [src]="imgUrl" [alt]="imgUrl" *ngIf="imgUrl">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+@use "../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.toast-info {
+  top: 10vh !important;
+}
+.toast-success {
+  top: 10vh !important;
+}
+.toast-error {
+  top: 10vh !important;
+}
+
+.tariff-box {
+  height: 25rem;
+  overflow: scroll;
+}

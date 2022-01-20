@@ -1,0 +1,58 @@
+.form-control:focus {
+  border-color: #965fe9;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.wrapper {
+  width: 25%;
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .file-upload {
+    p {
+      font-size: 1.8rem;
+    }
+    height: 15rem;
+    width: 35rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    background-image: linear-gradient(
+      45deg,
+      #1fa2ff 0%,
+      #12d8fa 25%,
+      #1fa2ff 75%
+    );
+
+    background-size: 100% 200%;
+    transition: all 1s;
+    color: #ffffff;
+    font-size: 100px;
+
+    input[type="file"] {
+      height: 15rem;
+      width: 35rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    &:hover {
+      background-position: 0 -150%;
+      p{
+      color: white !important;;
+        
+      }
+      color: black;
+      
+    }
+  }
+}

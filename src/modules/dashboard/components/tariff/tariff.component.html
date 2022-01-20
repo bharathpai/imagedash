@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 wrapper border border-3">
+      <div class="file-upload">
+        <input type="file" (change)="onFileChange($event)" accept=".xlsx,.csv" multiple="false" />
+        <p class="text-dark">Drag and Drop to Upload</p>
+        <i class="bi bi-arrow-up"></i>
+      </div>
+    </div>
+    <!-- <div class="col-md-1"></div> -->
+    <div class="col-md-2 d-flex align-items-center">
+      <h4><a class="text-decoration-none text-dark" [href]="this.fetch.baseUrl3">Generate sample sheet </a>
+        <i class="bi bi-download"></i></h4>
+    </div>
+  </div>
+  <div class="row mt-4 mx-5" [ngClass]="isLoaded? '':'d-none'">
+    <div class="col-md-12 mb-4 d-flex justify-content-end">
+      <app-button [btnText]="this.btnText[0]" (btnClick)="addRow()"></app-button>
+    </div>
+  </div>
+  <div class="container-fluid" [ngClass]="isLoaded? 'tariff-box':'d-none'">
+    <div class="row">
+      <!-- <div class="col-md-1">No:</div> -->
+      <div class="col-md-2">Zone</div>
+      <div class="col-md-2">Country</div>
+      <div class="col-md-3">Network Operator</div>
+      <div class="col-md-2">Network Code</div>
+      <div class="col-md-2">Increment</div>
+    </div>
+    <form [formGroup]="tariffForm">
+      <div formArrayName="tariffItem">
+        <div class="row mb-3" *ngFor="let item of TariffItem().controls;index as rowIndex" [formGroupName]="rowIndex">
+          <!-- <div class="col-md-1">{{rowIndex+1}}</div> -->
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="zone">
+          </div>
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="country">
+          </div>
+          <div class="col-md-3 form-group">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="network_operator">
+          </div>
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill " type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="network_code"
+              [ngClass]="item.get('network_code')?.invalid ? 'text-danger':'text-success'">
+          </div>
+          <div class="col-md-2 form-group">
+            <input class="form-control rounded-pill" type="text" (change)="changeEntries($event,rowIndex)"
+              formControlName="increment_type">
+          </div>
+          <div class="col-md-1"><button type="button" class="btn btn-outline-dark" (click)="deleteRow(rowIndex)">
+              <i class=" bi bi-trash-fill"></i>
+            </button></div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="row mt-4 mx-5">
+    <div class="col-md-12 mb-4 d-flex justify-content-end">
+      <app-button [ngClass]="isLoaded? '':'d-none'" [btnText]="this.btnText[1]" (btnClick)="confirm()"></app-button>
+      <app-button [ngClass]="isLoaded? '':'d-none'" class="mx-2" [btnText]="this.btnText[2]" (btnClick)="openPopup()">
+      </app-button>
+      <app-button [ngClass]="isLoaded? '':'d-none'" [btnText]="this.btnText[3]" (btnClick)="download()"></app-button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Imagedash</h3>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to discard all the changes?</p>
+      </div>
+      <div class="modal-footer">
+        <app-button class="btn" [btnText]="this.btnText[4]" (btnClick)="cancel()"></app-button>
+        <app-button class="btn" [btnText]="this.btnText[5]" (btnClick)="closePopup()"></app-button>
+      </div>
+    </div>
+  </div>
+</div>

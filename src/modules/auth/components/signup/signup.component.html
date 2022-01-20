@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5 col-md-8 col-sm-9 col-xs-9 mx-auto mt-5 box">
+      <h2 class="mb-4">Register</h2>
+      <form [formGroup]="userDetails" class="text-center">
+        <!--Email-->
+        <div class="form-group mb-5">
+          <div class="form-floating">
+            <input type="email" formControlName="email" class="form-control" id="email-id" placeholder="Email"
+              [ngClass]="{'is-invalid':userDetails.controls['email'].touched &&
+                    userDetails.controls['email'].invalid,'is-valid':userDetails.controls['email'].valid}" />
+            <label for="email-id" class="form-label">Enter your Email:</label>
+          </div>
+
+          <small class="alert text-danger px-3 p-0" role="alert" *ngIf="
+                    userDetails.controls['email'].touched &&
+                    userDetails.controls['email'].invalid
+                  ">
+            Please provide a valid email!
+          </small>
+        </div>
+        <!--Email-->
+
+        <!--Password-->
+        <div class="form-group mb-5">
+          <div class="input-group">
+            <div class="form-floating col">
+              <input id="password-1" [type]="this.toggle.showPassword ? 'text' : 'password'" name="password"
+                formControlName="password" class="form-control " placeholder="Password" [ngClass]="{'is-invalid':userDetails.controls['password'].touched &&
+                    userDetails.controls['password'].invalid,'is-valid':userDetails.controls['password'].valid}" />
+              <label for="password-1" class="form-label">Enter a Password:</label>
+            </div>
+            <span id="pass" class="input-group-text" (click)="this.toggle.togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{this.toggle.icon}}</mat-icon>
+            </span>
+          </div>
+
+          <small class=" alert text-danger px-3 p-0" role="alert" *ngIf="
+                    userDetails.controls['password'].touched &&
+                    userDetails.controls['password'].invalid
+                  ">
+            Your password must be 8-20 characters long, can contain letters, special characters and numbers, and must
+            not contain spaces, or emoji.
+          </small>
+
+        </div>
+
+        <!--Password-->
+        <!--Confirm Password-->
+        <div class="form-group mb-5">
+          <div class="input-group">
+            <div class="form-floating col">
+              <input [type]="this.toggle.showPassword ? 'text' : 'password'" name="password" formControlName="confirm"
+                class="form-control" id="password-2" placeholder="Confirm your Password" [ngClass]="{'is-invalid':!(userDetails.controls['password'].value ===
+                      userDetails.controls['confirm'].value) && userDetails.controls['password'].invalid && userDetails.controls['confirm'].touched,'is-valid':userDetails.controls['confirm'].valid && (userDetails.controls['password'].value ===
+                      userDetails.controls['confirm'].value)}" />
+              <label for="password-2" class="form-label">Confirm your Password:</label>
+            </div>
+            <span class="input-group-text" (click)="this.toggle.togglePasswordVisibility($event)">
+              <mat-icon matSuffix>{{this.toggle.icon}}</mat-icon>
+            </span>
+          </div>
+
+          <small class="alert text-danger p-0" role="alert" *ngIf="!(userDetails.controls['password'].value ===
+                userDetails.controls['confirm'].value) && userDetails.controls['password'].touched && userDetails.controls['confirm'].touched
+              ">
+            Passwords does not match!
+          </small>
+
+        </div>
+        <!--Confirm Password-->
+
+        <!--Submit Button-->
+        <button type="submit" (click)="registerUser()" [disabled]="!userDetails.valid" class="btn text-light mt-4 mb-4">
+          Sign Up
+        </button>
+        <!--Submit Button-->
+      </form>
+      <small class="p-2">Already have an account?</small>
+      <a class="text-center" routerLink="/login">Click here to Login</a>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 240">
+    <path fill="#965fe9" fill-opacity="1"
+      d="M0,256L34.3,245.3C68.6,235,137,213,206,218.7C274.3,224,343,256,411,245.3C480,235,549,181,617,154.7C685.7,128,754,128,823,138.7C891.4,149,960,171,1029,149.3C1097.1,128,1166,64,1234,53.3C1302.9,43,1371,85,1406,106.7L1440,128L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z">
+    </path>
+  </svg>
+</div>
