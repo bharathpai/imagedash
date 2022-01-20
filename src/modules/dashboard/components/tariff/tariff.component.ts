@@ -13,7 +13,7 @@ type AOA = any[][];
   styleUrls: ['./tariff.component.scss']
 })
 export class TariffComponent implements OnInit {
-  btnText: string[] = ["Add", "Confirm", "Cancel","Download"]
+  btnText: string[] = ["Add", "Confirm", "Cancel", "Download", "Yes", "No"]
 
   sheetHeaders = [
     'zone',
@@ -22,6 +22,7 @@ export class TariffComponent implements OnInit {
     'network_code',
     'increment_type',
   ];
+  displayStyle = "none";
 
   // Initializing tariffForm
   tariffForm = this.fb.group(
@@ -40,17 +41,6 @@ export class TariffComponent implements OnInit {
     private toast: ToastService) { }
 
   ngOnInit(): void {
-    // this.op.networkOperator.subscribe(msg => {
-    //   // console.log(msg);
-    //   // console.log(this.TariffItem());
-    //   this.TariffItem().controls.forEach((element) => {
-    //     for (let i of msg) {
-    //       console.log(element.get('zone')?.value == i.zone_details.zone_name)
-    //     }
-    //     // console.log(msg.includes(element.get('zone')?.value));
-    //   })
-    // })
-    // this.fetch.getData().subscribe((res) => console.log(res))
   }
 
 
@@ -59,6 +49,12 @@ export class TariffComponent implements OnInit {
     const target: DataTransfer = <DataTransfer>(evt.target);
 
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    // if (target.files[0].type != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || target.files[0].type != "text/csv" || false) {
+    //   this.toast.validUpload()
+    //   throw new Error('Please upload a Valid Excel Sheet(.xlsx) or a .csv file!')
+    // }
+    // console.log(target.files[0].type != ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || "text/csv"));
+
     const reader: FileReader = new FileReader();
 
     reader.onload = (e: any) => {
@@ -67,13 +63,11 @@ export class TariffComponent implements OnInit {
 
       const wb: XLSX.WorkBook = XLSX.read(ab);
       if (wb['Strings'].length == 0) {
-        let message: string = 'Please Upload a Valid Excel sheet!'
+        let message: string = 'This Excel sheet is empty! Please use the generated Excel sheet.'
         this.toast.emptyUpload(message)
         throw new Error('Please Upload a Valid Excel sheet!')
       }
       else {
-        console.log("File not empty");
-
         /* grab first sheet */
         const wsname: string = wb.SheetNames[0];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
@@ -81,7 +75,6 @@ export class TariffComponent implements OnInit {
         this.isLoaded = true
         /* save data */
         this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { blankrows: false, header: this.sheetHeaders, range: 1 }));
-
 
         this.TariffItem().clear();
 
@@ -97,16 +90,17 @@ export class TariffComponent implements OnInit {
           this.TariffItem().push(item)
         })
 
+        this.toast.uploadSuccess()
+
+
         this.op.networkOperator.subscribe(msg => {
           console.log(msg);
           // console.log(this.TariffItem());
           this.TariffItem().controls.forEach((element) => {
             for (let i of msg) {
-              // console.log(element.get('zone')?.value == i.zone_details.zone_name)
               console.log(`${element.get('zone')?.value} tarif`);
               console.log(`${i.zone_details.zone_name} zone`);
             }
-            // console.log(msg.includes(element.get('zone')?.value));
           })
 
         })
@@ -116,27 +110,8 @@ export class TariffComponent implements OnInit {
   }
 
   confirm(): void {
-
     this.TariffItem().get('network_code')?.setAsyncValidators(this.validator.ncValidator())
     console.log(this.TariffItem().value);
-
-
-    // console.log(this.data); 
-    // console.log(this.TariffItem().value);
-
-    // console.log(el.get('network_code'));
-
-    // el.get('network_code')?.valueChanges.subscribe(
-    //   res => console.log(res)
-    // )
-    // })
-    // for (let item of this.TariffItem().controls) {
-    //   console.log(item.get('network_code'));
-
-    // }
-    // this.TariffItem().clear();
-
-    // this.TariffItem().push(item)
   }
 
   download(): void {
@@ -149,7 +124,6 @@ export class TariffComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
   }
-
 
   TariffItem(): FormArray {
     return this.tariffForm.get('tariffItem') as FormArray;
@@ -165,45 +139,31 @@ export class TariffComponent implements OnInit {
       increment_type: ['']
     })
     this.TariffItem().push(item)
+    this.toast.rowAdd()
   }
-
 
   // To delete a row in Tariff form.
   deleteRow(row) {
     this.TariffItem().removeAt(row)
-    // this.data.splice(row, 1)
+    this.toast.rowRemove()
   }
 
   // To discard all edited changes in  Tariff form.
   cancel() {
     this.isLoaded = false
+    this.displayStyle = "none";
+    this.toast.dataClear()
   }
 
   changeEntries(event, rowIndex) {
-
     this.TariffItem().at(rowIndex).patchValue(event.target.value)
-
-    // this.data[rowIndex][event.target.getAttribute('formControlName')] = event.target.value
-    // console.log(this.TariffItem());
-    // console.log("Simple event" + " " + event);
-    // console.log(this.TariffItem());
-    // this.TariffItem()
-
   }
 
-  // update() {
-  //   this.TariffItem().clear();
-
-  //   this.data.forEach((element) => {
-  //     let item = this.fb.group({
-  //       zone: [element['zone']],
-  //       country: [element['country']],
-  //       network_operator: [element['network_operator']],
-  //       network_code: [element['network_code'], [Validators.required], [this.validator.ncValidator()]],
-  //       increment_type: [element['increment_type']]
-  //     })
-  //     this.TariffItem().push(item)
-  //   })
-  // }
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
+  }
 
 } 
